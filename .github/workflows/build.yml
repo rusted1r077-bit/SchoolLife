@@ -17,10 +17,14 @@ jobs:
           ls -R project
 
       - name: Build with Ren'Py
-        uses: ProjectAliceDev/renpy-build-action@v1
+        uses: ProjectAliceDev/renpy-build-action@master
         with:
+          sdk-version: '8.2.3'
           project-dir: project/SchoolLife
-          target: android
+          package: android
+        env:
+          SDL_AUDIODRIVER: dummy
+          SDL_VIDEODRIVER: dummy
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
