@@ -1,0 +1,29 @@
+name: Build Ren'Py APK
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Unzip project
+        run: |
+          mkdir -p project
+          unzip -o SchoolLife_JoiPlay*.zip -d project
+          ls -R project
+
+      - name: Build with Ren'Py
+        uses: ProjectAliceDev/renpy-build-action@v1
+        with:
+          project-dir: project/SchoolLife
+          target: android
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SchoolLife-apk
+          path: '**/*.apk'
